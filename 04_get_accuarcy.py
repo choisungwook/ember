@@ -17,7 +17,7 @@ import os
 parser = argparse.ArgumentParser()
 parser.add_argument('-c', '--csv', type=str, required=True, help='csv file(test result)')
 parser.add_argument('-l', '--label', type=str, required=True, help='csv file(testdataset label)')
-parser.add_argument('-t', '--threshold', type=str, default=0.7, help='threadshold for predicting')
+parser.add_argument('-t', '--threshold', type=str, default=0.5, help='threadshold for predicting')
 args = parser.parse_args()
 
 def main():

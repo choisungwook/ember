@@ -11,7 +11,7 @@ from collections import OrderedDict
 parser = argparse.ArgumentParser()
 parser.add_argument("-m", "--modelpath", type=str, required=True, help="trained model path")
 parser.add_argument("-d", "--datadir", type=str, help="Directory for predicting dataSets", required=True)
-parser.add_argument("-o", "--output", type=str, help="output label and y_pred", required=True)
+parser.add_argument("-o", "--output", type=str, help="output directory", required=True)
 args = parser.parse_args()
 
 if not os.path.exists(args.modelpath):
