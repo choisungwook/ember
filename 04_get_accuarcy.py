@@ -24,21 +24,34 @@ def main():
     data = pd.read_csv(args.csv, names=['hash', 'y_pred']).sort_values(by=['hash'])
     label = pd.read_csv(args.label, names=['hash', 'y']).sort_values(by=['hash'])
     end = len(data)
-    
-    y = label.y    
-    ypred = np.where(np.array(data.y_pred) > float(args.threshold), 1, 0)
- 
-    #get and print accuracy
-    accuracy = accuracy_score(y, ypred)
-    print("accuracy : %.2f%%" % (np.round(accuracy, decimals=4)*100))
-   
-    #get and print matrix
-    tn, fp, fn, tp = confusion_matrix(y, ypred).ravel()
-    mt = np.array([[tp, fp],[fn, tn]])
+    y = []
 
-    print(mt)
-    print("false postive rate : %.2f%%" % ( round(fp / float(fp + tn), 4) * 100))
-    print("false negative rate : %.2f%%" % ( round(fn / float(fn + tp), 4) * 100))
+    if len(label) == end:
+        try:
+            for idx, row in tqdm.tqdm(data.iterrows(), total=end):
+                _name = row['hash']
+                r = label[label.hash==_name].values[0][1]
+                y.append(r)
+
+            ypred = np.where(np.array(data.y_pred) > float(args.threshold), 1, 0)
+ 
+            #get and print accuracy
+            accuracy = accuracy_score(y, ypred)
+            print("accuracy : %.2f%%" % (np.round(accuracy, decimals=4)*100))
+        
+            #get and print matrix
+            tn, fp, fn, tp = confusion_matrix(y, ypred).ravel()
+            mt = np.array([[tp, fp],[fn, tn]])
+
+            print(mt)
+            print("false postive rate : %.2f%%" % ( round(fp / float(fp + tn), 4) * 100))
+            print("false negative rate : %.2f%%" % ( round(fn / float(fn + tp), 4) * 100))
+
+        except:
+            print("[Error] Please Check label file ****** ")
+            
+    else:
+        print("[Error] Please Check label file ****** ")
 
 if __name__=='__main__':
     main()
