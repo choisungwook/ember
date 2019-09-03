@@ -32,7 +32,7 @@ H. Anderson and P. Roth, "EMBER: An Open Dataset for Training Static PE Malware 
 ```  
   
 # Install
-Above python 3.5    
+Above python 3.6.8  
 
 ```
 sudo apt install python-pip3
